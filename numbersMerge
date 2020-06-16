@@ -1,0 +1,49 @@
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+
+public class NumbersMerge {
+    public static void main(String[] args) {
+        int a,b;
+        try(Scanner scanner=new Scanner(new FileReader("numbers1.txt"));Scanner scanner1=new Scanner(new FileReader("numbers2.txt"));FileWriter outputfile=new FileWriter("output.txt")){
+            a=scanner.nextInt();
+            b=scanner1.nextInt();
+            while(scanner.hasNextInt() && scanner1.hasNextInt()){
+
+                if(a<=b){
+
+                    outputfile.write(String.valueOf(a)+" ");
+                    a=scanner.nextInt();
+                }
+                else{
+
+                    outputfile.write(String.valueOf(b)+" ");
+                    b=scanner1.nextInt();
+                }
+            }
+            while(scanner.hasNextInt()){
+                outputfile.write(String.valueOf(a)+" ");
+                a=scanner.nextInt();
+            }
+            while(scanner1.hasNextInt()){
+                outputfile.write(String.valueOf(b)+" ");
+                b=scanner1.nextInt();
+            }
+            if(a<=b) {
+                outputfile.write(String.valueOf(a)+" ");
+                outputfile.write(String.valueOf(b));
+            }
+            else {
+                outputfile.write(String.valueOf(b)+" ");
+                outputfile.write(String.valueOf(a));
+            }
+        }catch (IOException e){
+            System.out.println("Error while trying to close the files");
+            e.printStackTrace();
+        } catch (NullPointerException e){
+            System.out.println("There are no numbers in the files");
+            e.printStackTrace();
+        }
+    }
+}
