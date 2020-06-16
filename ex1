@@ -1,0 +1,44 @@
+package ex1;
+
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+
+public class Ex {
+    public static void main(String[] args) {
+        String s1,s2;
+        StringBuilder string=new StringBuilder("");
+        Scanner sc1=new Scanner(System.in);
+        s1=sc1.nextLine();
+        s2=sc1.nextLine();
+        try(Scanner scanner=new Scanner(new FileReader("input.txt"))){
+            while(scanner.hasNextLine()){
+                string.append(scanner.nextLine());
+            }
+        }
+        catch(IOException e)
+        {
+            System.out.println("Exception raised when attempting to close the file");
+            e.printStackTrace();
+        }
+        String[] rez=string.toString().split(" ");
+        string=string.delete(0,string.length());
+        for(String it:rez){
+            if (it.equalsIgnoreCase(s1)){
+                string.append(s2+" ");
+            }
+            else {
+                string.append(it+" ");
+
+            }
+        }
+        try(FileWriter outputFile = new FileWriter("input.txt")){
+            outputFile.write(String.valueOf(string));
+        }catch (IOException e){
+            System.out.println("Exception raised when attempting to close the file");
+            e.printStackTrace();
+        }
+
+    }
+}
