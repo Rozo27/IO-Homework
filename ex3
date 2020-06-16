@@ -1,0 +1,48 @@
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        int min=Integer.MAX_VALUE,max=Integer.MIN_VALUE,noWords=0;
+        String cuv,first,last,minC,maxC;
+        Scanner scanner=new Scanner(System.in);
+        first=cuv=scanner.nextLine();
+        minC=maxC=last=first;
+        while(scanner.hasNextLine()){
+            noWords++;
+            if(cuv.length()<min){
+                min=cuv.length();
+                minC=cuv;
+            }
+            if(cuv.length()>max){
+                max=cuv.length();
+                maxC=cuv;
+            }
+            cuv=scanner.nextLine();
+            if(cuv.compareTo(first)<0)
+                first=cuv;
+            if(cuv.compareTo(last)>0)
+                last=cuv;
+        }
+        if(cuv.length()<min){
+            min=cuv.length();
+            minC=cuv;
+        }
+        if(cuv.length()>max){
+            max=cuv.length();
+            maxC=cuv;
+        }
+        try(FileWriter outputFile=new FileWriter("result.txt")){
+            outputFile.write("Cel mai scurt cuvant:"+minC+"\n");
+            outputFile.write("Cel lung cuvant:"+maxC+"\n");
+            outputFile.write("Primul cuvant in ordine alfabetica:"+first+"\n");
+            outputFile.write("Ultimul cuvant in ordine alfabetica:"+last+"\n");
+            outputFile.write("Numarul de cuvinte:"+(++noWords));
+        }catch (IOException e){
+            System.out.println("Error while trying to close the file");
+            e.printStackTrace();
+        }
+    }
+}
