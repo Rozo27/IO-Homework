@@ -1,0 +1,39 @@
+package ex11;
+
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+
+public class Exercitiu1Modificat {
+    public static void main(String[] args) {
+        String string,s1,s2;
+        Scanner sc1=new Scanner(System.in);
+        StringBuilder sB;
+        s1=sc1.nextLine();
+        s2=sc1.nextLine();
+        String rez[];
+        try(Scanner scanner=new Scanner(new FileReader("input.txt")); FileWriter outputfile=new FileWriter("output.txt")){
+            while(scanner.hasNextLine()){
+                string=scanner.nextLine();
+
+                if(string!="") {
+                    sB = new StringBuilder();
+                    rez = string.split(" ");
+                    for (String it : rez) {
+                        if (it.equalsIgnoreCase(s1)) {
+                            sB.append(s2 + " ");
+                        } else sB.append(it + " ");
+                    }
+                    outputfile.write(String.valueOf(sB));
+                }
+                else outputfile.write("\n");
+            }
+        }
+        catch(IOException e)
+        {
+            System.out.println("Exception raised when attempting to close the file");
+            e.printStackTrace();
+        }
+    }
+}
